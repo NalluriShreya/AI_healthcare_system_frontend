@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+/* Global font */
+* {
+  font-family: "Inter", "Lato", "Segoe UI", "Gill Sans Nova", "Helvetica Neue",
+    Helvetica, Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* Base body style */
+body {
+  @apply bg-gradient-to-br from-blue-50 to-indigo-50 text-gray-900;
+}
+
+/* ===========================
+   COMPONENT LAYER
+   =========================== */
+@layer components {
+
+  /* ---------- Inputs ---------- */
+  .input-field {
+    @apply w-full px-4 py-3.5 border border-gray-300 rounded-xl
+           bg-white text-gray-900 placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
+           transition-all duration-200;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn-primary {
+    @apply bg-blue-600 text-white font-semibold px-6 py-3.5 rounded-xl
+           hover:bg-blue-700 active:bg-blue-800
+           transition-all duration-200 shadow-md hover:shadow-lg
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-100 text-gray-800 font-semibold px-6 py-3.5 rounded-xl
+           hover:bg-gray-200 active:bg-gray-300
+           transition-all duration-200 shadow-sm hover:shadow-md;
+  }
+
+  .btn-outline {
+    @apply bg-transparent border-2 border-blue-600 text-blue-600 font-semibold
+           px-6 py-3.5 rounded-xl
+           hover:bg-blue-50 active:bg-blue-100
+           transition-all duration-200;
+  }
+
+  /* ---------- Cards ---------- */
+  .card {
+    @apply bg-white p-6 rounded-2xl shadow-lg border border-gray-100;
+  }
+
+  .card-hover {
+    @apply hover:shadow-xl hover:scale-105 transition-all duration-300;
+  }
+
+  .card-interactive {
+    @apply hover:shadow-2xl hover:-translate-y-1
+           transition-all duration-300 cursor-pointer;
+  }
+
+  /* ---------- Typography ---------- */
+  .heading-xl {
+    @apply text-4xl md:text-5xl font-bold tracking-tight text-gray-900;
+  }
+
+  .heading-lg {
+    @apply text-3xl md:text-4xl font-bold tracking-tight text-gray-900;
+  }
+
+  .heading-md {
+    @apply text-2xl md:text-3xl font-semibold text-gray-900;
+  }
+
+  .text-muted {
+    @apply text-gray-500;
+  }
+
+  /* ---------- Floating Backgrounds ---------- */
+  .floating-bg {
+    @apply absolute rounded-full blur-3xl opacity-20 pointer-events-none;
+  }
+
+  /* ---------- Animations ---------- */
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(10px, -10px) rotate(5deg); }
+    50% { transform: translate(-5px, -15px) rotate(-5deg); }
+    75% { transform: translate(-10px, 5px) rotate(3deg); }
+  }
+
+  @keyframes float-reverse {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-10px, 10px) rotate(-5deg); }
+    50% { transform: translate(5px, 15px) rotate(5deg); }
+    75% { transform: translate(10px, -5px) rotate(-3deg); }
+  }
+
+  .animate-float {
+    animation: float 20s ease-in-out infinite;
+  }
+
+  .animate-float-reverse {
+    animation: float-reverse 18s ease-in-out infinite;
+  }
+
+  /* ---------- Dashboard ---------- */
+.dashboard-feature-card {
+  @apply bg-white p-6 rounded-2xl shadow-lg border border-gray-100
+         cursor-pointer border-2 border-transparent
+         hover:border-blue-200 hover:shadow-xl hover:-translate-y-1
+         transition-all duration-300;
+}
+
+  /* ---------- Header ---------- */
+  .header-container {
+    @apply bg-white shadow-sm border-b border-gray-200
+           sticky top-0 z-50;
+  }
+
+  /* ---------- Gradients ---------- */
+  .bg-gradient-primary {
+    @apply bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800;
+  }
+
+  .bg-gradient-soft {
+    @apply bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50;
+  }
+}
+
+/* ===========================
+   SCROLLBAR
+   =========================== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 rounded-lg;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-lg hover:bg-gray-400;
+}
+
+/* Remove Edge / IE default password reveal */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+/* Remove Chrome autofill credentials icon */
+input[type="password"]::-webkit-credentials-auto-fill-button {
+  display: none !important;
+}
+
+
+/* index.css */
+.scrollbar-thin::-webkit-scrollbar {
+  height: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 999px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: linear-gradient(to right, #6366f1, #a855f7);
+  border-radius: 999px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to right, #4f46e5, #9333ea);
+}
+
+/* Hide scrollbar but keep scroll functionality */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
