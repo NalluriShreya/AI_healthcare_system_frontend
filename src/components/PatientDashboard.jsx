@@ -32,6 +32,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 import PaymentModal from './PaymentModal';
 import PaymentHistoryView from './PaymentHistoryView';
+import DiseasePredictionView from './DiseasePredictionView';
 
 const API_BASE_URL = 'http://localhost:8000';
 
@@ -214,21 +215,21 @@ const [settingsSuccess, setSettingsSuccess] = useState('');
   ];
 
   const features = [
-    {
-      icon: MessageSquare,
-      title: 'Symptom Checker',
-      description: 'AI-powered chatbot to analyze your symptoms',
-      color: 'from-blue-500 to-blue-600',
-      iconBg: 'bg-blue-500',
-      onClick: () => alert('Coming soon!')
-    },
+    // {
+    //   icon: MessageSquare,
+    //   title: 'Symptom Checker',
+    //   description: 'AI-powered chatbot to analyze your symptoms',
+    //   color: 'from-blue-500 to-blue-600',
+    //   iconBg: 'bg-blue-500',
+    //   onClick: () => alert('Coming soon!')
+    // },
     {
       icon: Activity,
       title: 'Disease Prediction',
       description: 'Get intelligent health predictions',
       color: 'from-green-500 to-green-600',
       iconBg: 'bg-green-500',
-      onClick: () => alert('Coming soon!')
+      onClick: () => setView('predict')
     },
     {
       icon: Calendar,
@@ -512,7 +513,10 @@ const [settingsSuccess, setSettingsSuccess] = useState('');
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main
+        id="dashboard-main"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"
+      >
         {/* Navigation Tabs */}
         <div className="flex gap-2 mb-8 overflow-x-auto">
           <button
@@ -524,6 +528,17 @@ const [settingsSuccess, setSettingsSuccess] = useState('');
             }`}
           >
             Home
+          </button>
+          <button
+            onClick={() => setView('predict')}
+            className={`px-6 py-3 rounded-lg font-semibold transition-all whitespace-nowrap flex items-center gap-2 ${
+              view === 'predict'
+                ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg'
+                : 'bg-white text-gray-700 hover:bg-gray-50'
+            }`}
+          >
+            {/* <Activity size={16} /> */}
+            Disease Prediction
           </button>
           <button
             onClick={() => setView('book')}
@@ -553,7 +568,7 @@ const [settingsSuccess, setSettingsSuccess] = useState('');
                 : 'bg-white text-gray-700 hover:bg-gray-50'
             }`}
           >
-            <Receipt size={16} />
+            {/* <Receipt size={16} /> */}
             Payment History
           </button>
         </div>
@@ -591,6 +606,9 @@ const [settingsSuccess, setSettingsSuccess] = useState('');
           {view === 'payments' && (
             <PaymentHistoryView token={token} />
           )}
+          {view === 'predict' && (
+            <DiseasePredictionView token={token} />
+          )}          
         </AnimatePresence>
       </main>
     </div>
@@ -651,7 +669,7 @@ function HomeView({ user, stats, features, myAppointments }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 + index * 0.1 }}
               onClick={feature.onClick}
-              className="dashboard-feature-card group cursor-pointer flex-shrink-0 w-56 snap-start"
+              className="dashboard-feature-card group cursor-pointer flex-shrink-0 w-72 snap-start"
             >
               <div
                 className={`w-14 h-14 ${feature.iconBg} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}
