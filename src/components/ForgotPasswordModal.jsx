@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import axios from 'axios';
 
 // ─── reuse your existing API base URL ───────────────────────
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const API_BASE = import.meta.env.VITE_BACKEND_URL;
 
 const api = axios.create({ baseURL: API_BASE });
 

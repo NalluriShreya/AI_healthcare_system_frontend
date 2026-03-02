@@ -10,8 +10,6 @@ import {
   Microscope, Baby, Scan, X, ImagePlus, Dna, Zap, Bone,
 } from 'lucide-react';
 
-const API_BASE_URL = 'http://localhost:8000';
-
 // ── Department styles ─────────────────────────────────────────────────────────
 const DEPT_STYLES = {
   general_practice: { gradient: 'from-blue-500 to-cyan-600',      bg: 'bg-blue-50',    border: 'border-blue-200',    text: 'text-blue-700',    Icon: Stethoscope },
@@ -117,7 +115,7 @@ function DermatologyUploader({ token, onResult, onError }) {
     try {
       const formData = new FormData();
       formData.append('file', file);
-      const res = await axios.post(`${API_BASE_URL}/api/predict/dermatology`, formData, {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/predict/dermatology`, formData, {
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' },
       });
       onResult(res.data);
@@ -221,7 +219,7 @@ function OrthopedicsUploader({ token, onResult, onError }) {
     try {
       const formData = new FormData();
       formData.append('file', file);
-      const res = await axios.post(`${API_BASE_URL}/api/predict/orthopedics`, formData, {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/predict/orthopedics`, formData, {
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' },
       });
       onResult(res.data);
@@ -316,7 +314,7 @@ export default function DiseasePredictionView({ token }) {
   useEffect(() => {
     (async () => {
       try {
-        const res = await axios.get(`${API_BASE_URL}/api/predict/departments`, {
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/predict/departments`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setDepartments(res.data.departments);
@@ -369,7 +367,7 @@ export default function DiseasePredictionView({ token }) {
     setPredicting(true);
     try {
       const res = await axios.post(
-        `${API_BASE_URL}/api/predict/`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/predict/`,
         { department: selectedDept.id, features: formValues },
         { headers: { Authorization: `Bearer ${token}` } },
       );

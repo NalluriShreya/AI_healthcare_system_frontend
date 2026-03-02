@@ -28,7 +28,6 @@ import {
   X,
 } from 'lucide-react';
 
-const API_BASE_URL = 'http://localhost:8000';
 
 // ─────────────────────────────────────────
 // Helpers
@@ -531,7 +530,7 @@ export function PaymentHistoryView({ token }) {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.get(`${API_BASE_URL}/api/patient/payment-history`, {
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/patient/payment-history`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setData(res.data);

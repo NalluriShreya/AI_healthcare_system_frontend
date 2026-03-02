@@ -45,7 +45,7 @@ export function UserManagement() {
       if (departmentFilter !== 'all') params.append('department', departmentFilter);
 
       const res = await fetch(
-        `http://localhost:8000/api/admin/doctors?${params}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/doctors?${params}`,
         { headers: { Authorization: `Bearer ${getToken()}` } }
       );
       const data = await res.json();
@@ -61,7 +61,7 @@ export function UserManagement() {
     try {
       setLoading(true);
       const res = await fetch(
-        'http://localhost:8000/api/admin/patients',
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/patients`,
         { headers: { Authorization: `Bearer ${getToken()}` } }
       );
       const data = await res.json();
@@ -85,7 +85,7 @@ export function UserManagement() {
 
   const updateDoctorStatus = async (doctorId, status) => {
     await fetch(
-      `http://localhost:8000/api/admin/doctor/${doctorId}/status`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/admin/doctor/${doctorId}/status`,
       {
         method: 'PATCH',
         headers: {

@@ -33,7 +33,7 @@ export function AddDoctorModal({ isOpen, onClose, onSuccess }) {
       if (!token) throw new Error('No authentication token found');
 
       const response = await fetch(
-        'http://localhost:8000/api/admin/doctor/create',
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/doctor/create`,
         {
           method: 'POST',
           headers: {

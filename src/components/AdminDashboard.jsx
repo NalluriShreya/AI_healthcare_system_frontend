@@ -14,8 +14,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReportsView from './ReportsView';
 
-const API_BASE_URL = 'http://localhost:8000';
-
 // ─────────────────────────────────────────────────────────────
 // ROOT COMPONENT
 // ─────────────────────────────────────────────────────────────
@@ -37,7 +35,7 @@ export default function AdminDashboard() {
 
   const fetchLeaveRequests = async () => {
     try {
-      const res = await axios.get(`${API_BASE_URL}/api/admin/leave-requests`, {
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/admin/leave-requests`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setLeaveRequests(res.data);
@@ -51,7 +49,7 @@ export default function AdminDashboard() {
   const fetchAnalytics = async () => {
     setLoadingAnalytics(true);
     try {
-      const res = await axios.get(`${API_BASE_URL}/api/admin/analytics`, {
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/admin/analytics`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setAnalytics(res.data);
@@ -541,7 +539,7 @@ function LeaveRequestsModal({ show, onClose, leaveRequests, token, onUpdate }) {
     setLoading(true);
     try {
       await axios.post(
-        `${API_BASE_URL}/api/admin/leave/review`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/leave/review`,
         { leave_id: leaveId, action, admin_notes: adminNotes || undefined },
         { headers: { Authorization: `Bearer ${token}` } },
       );

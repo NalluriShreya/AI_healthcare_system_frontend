@@ -11,7 +11,6 @@ import {
 import { useState } from 'react';
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8000';
 
 // ─────────────────────────────────────────────────────────────
 // REPORTS VIEW (top-level, plug into AdminDashboard)
@@ -93,15 +92,15 @@ export default function ReportsView({ token }) {
       const headers = { Authorization: `Bearer ${token}` };
 
       if (report.id === 'doctors') {
-        res = await axios.get(`${API_BASE_URL}${report.endpoint}`, { headers });
+        res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}${report.endpoint}`, { headers });
         setData({ type: 'doctors', rows: res.data.doctors || [], total: res.data.total });
 
       } else if (report.id === 'patients') {
-        res = await axios.get(`${API_BASE_URL}${report.endpoint}`, { headers });
+        res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}${report.endpoint}`, { headers });
         setData({ type: 'patients', rows: res.data.patients || [], total: res.data.total });
 
       } else if (report.id === 'leaves') {
-        res = await axios.get(`${API_BASE_URL}${report.endpoint}`, { headers });
+        res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}${report.endpoint}`, { headers });
         const all = res.data.all || [];
         setData({ type: 'leaves', rows: all, total: all.length, summary: {
           pending: res.data.pending?.length || 0,
@@ -110,7 +109,7 @@ export default function ReportsView({ token }) {
         }});
 
       } else {
-        res = await axios.get(`${API_BASE_URL}${report.endpoint}`, { headers });
+        res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}${report.endpoint}`, { headers });
         setData({ type: report.id, analytics: res.data });
       }
     } catch (e) {

@@ -24,7 +24,6 @@ import {
 } from 'lucide-react';
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8000';
 
 // Future Appointments View Component (defined before main component)
 function FutureAppointmentsView({ futureData, token }) {
@@ -158,7 +157,7 @@ function LeaveModal({ show, onClose, onSuccess, token }) {
     setLoading(true);
     try {
       const res = await axios.post(
-        `${API_BASE_URL}/api/doctor/leave/request`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/doctor/leave/request`,
         {
           start_date: startDate,
           end_date: endDate,
@@ -331,7 +330,7 @@ export function DoctorDashboard() {
   const fetchDashboardData = async () => {
     try {
       const availRes = await axios.get(
-        `${API_BASE_URL}/api/doctor/availability/today`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/doctor/availability/today`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -340,10 +339,10 @@ export function DoctorDashboard() {
       setTodayAvailability(availabilityData);
 
       const [appointmentsRes, leavesRes] = await Promise.all([
-        axios.get(`${API_BASE_URL}/api/doctor/appointments/today`, {
+        axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/doctor/appointments/today`, {
           headers: { Authorization: `Bearer ${token}` }
         }),
-        axios.get(`${API_BASE_URL}/api/doctor/leave/list`, {
+        axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/doctor/leave/list`, {
           headers: { Authorization: `Bearer ${token}` }
         })
       ]);
@@ -368,7 +367,7 @@ export function DoctorDashboard() {
 
   const fetchNotifications = async () => {
     try {
-      const res = await axios.get(`${API_BASE_URL}/api/doctor/notifications`, {
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/doctor/notifications`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -391,7 +390,7 @@ export function DoctorDashboard() {
 
   const fetchFutureAppointments = async () => {
     try {
-      const res = await axios.get(`${API_BASE_URL}/api/doctor/appointments/future`, {
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/doctor/appointments/future`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setFutureAppointments(res.data);
@@ -403,7 +402,7 @@ export function DoctorDashboard() {
   const markAsCompleted = async (appointmentId) => {
     try {
       await axios.patch(
-        `${API_BASE_URL}/api/doctor/appointment/${appointmentId}/complete`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/doctor/appointment/${appointmentId}/complete`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -438,7 +437,7 @@ export function DoctorDashboard() {
 
     try {
       await axios.post(
-        `${API_BASE_URL}/api/doctor/availability/set`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/doctor/availability/set`,
         {
           date: today,
           is_available: newStatus,
@@ -473,7 +472,7 @@ export function DoctorDashboard() {
 
     try {
       await axios.post(
-        `${API_BASE_URL}/api/doctor/slot/toggle`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/doctor/slot/toggle`,
         {
           date: today,
           slot: slot,

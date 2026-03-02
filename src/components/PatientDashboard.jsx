@@ -34,7 +34,6 @@ import PaymentModal from './PaymentModal';
 import PaymentHistoryView from './PaymentHistoryView';
 import DiseasePredictionView from './DiseasePredictionView';
 
-const API_BASE_URL = 'http://localhost:8000';
 
 export function PatientDashboard() {
   const { user, logout, token } = useAuthStore();
@@ -90,7 +89,7 @@ const [settingsSuccess, setSettingsSuccess] = useState('');
 
   const fetchAppointments = async () => {
     try {
-      const res = await axios.get(`${API_BASE_URL}/api/patient/appointments`, {
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/patient/appointments`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMyAppointments(res.data);
@@ -104,7 +103,7 @@ const [settingsSuccess, setSettingsSuccess] = useState('');
   const fetchNotifications = async () => {
     try {
       const res = await axios.get(
-        `${API_BASE_URL}/api/patient/notifications`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/patient/notifications`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -161,7 +160,7 @@ const [settingsSuccess, setSettingsSuccess] = useState('');
     setSettingsSuccess('');
     try {
       const res = await axios.patch(
-        `${API_BASE_URL}/api/patient/profile`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/patient/profile`,
         {
           name: editForm.name || undefined,
           email: editForm.email || undefined,
@@ -789,7 +788,7 @@ function BookAppointmentView({ token, onSuccess }) {
       }
 
       const res = await axios.get(
-        `${API_BASE_URL}/api/patient/doctors/search?${params}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/patient/doctors/search?${params}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -884,7 +883,7 @@ function BookAppointmentView({ token, onSuccess }) {
         }
 
         const res = await axios.get(
-          `${API_BASE_URL}/api/patient/doctors/search?${params}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/patient/doctors/search?${params}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -906,7 +905,7 @@ function BookAppointmentView({ token, onSuccess }) {
 
   const fetchDepartments = async () => {
     try {
-      const res = await axios.get(`${API_BASE_URL}/api/departments`);
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/departments`);
       setDepartments(res.data.departments);
     } catch (error) {
       console.error('Error fetching departments:', error);
@@ -944,7 +943,7 @@ function BookAppointmentView({ token, onSuccess }) {
   const handlePaymentSuccess = async ({ method } = {}) => {
       setLoading(true);
       try {
-          await axios.post(`${API_BASE_URL}/api/patient/appointment/book`, {
+          await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/patient/appointment/book`, {
               doctor_id: selectedDoctor.doctor_id,
               date: selectedDate,
               slot: selectedSlot,
@@ -1433,7 +1432,7 @@ function BookAppointmentView({ token, onSuccess }) {
                     }
 
                     const res = await axios.get(
-                      `${API_BASE_URL}/api/patient/doctors/search?${params}`,
+                      `${import.meta.env.VITE_BACKEND_URL}/api/patient/doctors/search?${params}`,
                       { headers: { Authorization: `Bearer ${token}` } }
                     );
 
@@ -1646,7 +1645,7 @@ function MyAppointmentsView({ appointments, token, onUpdate }) {
 
     try {
       await axios.patch(
-        `${API_BASE_URL}/api/patient/appointment/${appointmentId}/cancel`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/patient/appointment/${appointmentId}/cancel`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

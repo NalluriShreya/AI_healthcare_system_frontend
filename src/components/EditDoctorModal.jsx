@@ -50,7 +50,7 @@ export function EditDoctorModal({ isOpen, onClose, onSuccess, doctor }) {
       if (!token) throw new Error('No authentication token found');
 
       const response = await fetch(
-        `http://localhost:8000/api/admin/doctor/${doctor.doctor_id}/update`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/doctor/${doctor.doctor_id}/update`,
         {
           method: 'PATCH',
           headers: {

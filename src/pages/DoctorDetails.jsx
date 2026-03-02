@@ -35,7 +35,7 @@ export function DoctorDetails() {
     try {
       const token = localStorage.getItem('token');
       const res = await fetch(
-        `http://localhost:8000/api/admin/doctor/${doctorId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/doctor/${doctorId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -56,7 +56,7 @@ export function DoctorDetails() {
       const token = localStorage.getItem('token');
 
       const res = await fetch(
-        `http://localhost:8000/api/admin/doctor/${doctor.doctor_id}/status`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/doctor/${doctor.doctor_id}/status`,
         {
           method: 'PATCH',
           headers: {
